@@ -12,16 +12,35 @@ namespace CarLotWebApi.Controllers
     [Route("api/Inventory/{id?}")]
     public class InventoryController : ApiController
     {
+        private readonly IMapper mapper;
+        private readonly InventoryRepo _repo = new InventoryRepo();
+
         public InventoryController()
         {
-            MapperConfiguration config = new MapperConfiguration(cfg => {
+            MapperConfiguration config = new MapperConfiguration(cfg => 
+            {
                 cfg.CreateMap<Inventory, Inventory>()
                 .ForMember(x => x.Orders, opt => opt.Ignore());
             });
+            mapper = config.CreateMapper();
+
         }
         [HttpGet, Route("")]
-        public IEnumerable<string> Get() => new string[] { "value1", "value2" };
-        [HttpGet, Route("{id}")]
-        public string Get(int id) => id.ToString();
+        public IEnumerable<Inventory> GetInventory()
+        {
+            var inventories = _repo.GetAll();
+            return mapper.Map<List<Inventory>, List<Inventory>>(inventories);
+        }
+        [HttpGet, Route("{id}", Name = "DisplayRoute")]
+        [ResponseType(typeof(Inventory))]
+        public async Task<IHttpActionResult> GetInventory(int id)
+        {
+            Inventory inventory = _repo.GetOne(id);
+            if (inventory == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<Inventory, Inventory>(inventory));
+        }
     }
 }
