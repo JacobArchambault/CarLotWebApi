@@ -179,6 +179,16 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\VI - Introducing the .NET Base Class Libraries\22 - Introducing Entity Framework 6\AutoLotDAL\AutoLotDAL.Models\AutoLotDAL.Models.csproj">
+      <Project>{2e11798c-c940-4dea-b00e-9411e5b1abb5}</Project>
+      <Name>AutoLotDAL.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VI - Introducing the .NET Base Class Libraries\22 - Introducing Entity Framework 6\AutoLotDAL\AutoLotDAL\AutoLotDAL.csproj">
+      <Project>{b6b5fa29-4008-49e5-9adf-80387f41c8cd}</Project>
+      <Name>AutoLotDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
