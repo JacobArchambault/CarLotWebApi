@@ -42,5 +42,13 @@ namespace CarLotWebApi.Controllers
             }
             return Ok(mapper.Map<Inventory, Inventory>(inventory));
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _repo.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
