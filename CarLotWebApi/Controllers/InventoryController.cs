@@ -65,6 +65,24 @@ namespace CarLotWebApi.Controllers
             }
             return StatusCode(HttpStatusCode.NoContent);
         }
+        [HttpDelete, Route("{id}")]
+        [ResponseType(typeof(Inventory))]
+        public IHttpActionResult DeleteInventory(int id, Inventory inventory)
+        {
+            if (id != inventory.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _repo.Delete(inventory);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return Ok();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
