@@ -42,6 +42,29 @@ namespace CarLotWebApi.Controllers
             }
             return Ok(mapper.Map<Inventory, Inventory>(inventory));
         }
+        [HttpPut, Route("{id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutInventory(int id, Inventory inventory)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (id != inventory.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _repo.Save(inventory);
+            }
+            catch (Exception ex)
+            {
+                // Production app should do more here.
+                throw;
+            }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
